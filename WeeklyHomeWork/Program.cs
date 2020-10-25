@@ -41,7 +41,7 @@ namespace WeeklyHomeWork
         {
             int position;
             T[] tempArray = new T[items.Length];
-            if (items.Length % 2 == 0)
+            if ((items.Length % 2 == 0) && items.Length > 3)
             {
                 position = items.Length / 2 - 1;
 
@@ -49,12 +49,17 @@ namespace WeeklyHomeWork
                 temp.RemoveRange(position, 2);
                 tempArray = temp.ToArray();
             }
-            else if (items.Length % 2 != 0)
+            else if ((items.Length % 2 != 0) && items.Length > 3)
             {
                 position = items.Length / 2 - 1;
 
                 List<T> temp = new List<T>(items);
                 temp.RemoveAt(position);
+                tempArray = temp.ToArray();
+            }else if (items.Length == 3)
+            {
+                List<T> temp = new List<T>(items);
+                temp.RemoveAt(1);
                 tempArray = temp.ToArray();
             }
 
@@ -73,11 +78,11 @@ namespace WeeklyHomeWork
                 {
                     indexes[0] = indexes[1] - 2;
                     indexes[2] = indexes[1] + 1;
-                }
 
-                tempArray[0] = temp[indexes[0]];
-                tempArray[1] = temp[indexes[1]];
-                tempArray[2] = temp[indexes[2]];
+                    tempArray[0] = temp[indexes[0]];
+                    tempArray[1] = temp[indexes[1]];
+                    tempArray[2] = temp[indexes[2]];
+                }                
             }
 
             return tempArray;
@@ -95,7 +100,7 @@ namespace WeeklyHomeWork
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            MyCollection<string> collection = new MyCollection<string>() { "1", "2", "3", "4", "5", "6" };
+            MyCollection<string> collection = new MyCollection<string>() { "1", "2", "3", "4" };
 
             Console.WriteLine("Первый и последний элементы:");
             foreach (string item in collection.GetFirstAndLast())
@@ -111,7 +116,7 @@ namespace WeeklyHomeWork
 
             Predicate<MyCollection<string>> predicate = IsValid;
             Console.WriteLine("\nБлижайшие по условию");
-            foreach (string item in collection.GetClosest("5", predicate.Invoke(collection)))
+            foreach (string item in collection.GetClosest("3", predicate.Invoke(collection)))
             {
                 Console.WriteLine(item);
             }
@@ -119,7 +124,7 @@ namespace WeeklyHomeWork
         }
         private static bool IsValid(MyCollection<string> items)
         {            
-            return items.Count() > 4;
+            return items.Count() > 3;
         }
     }
     
