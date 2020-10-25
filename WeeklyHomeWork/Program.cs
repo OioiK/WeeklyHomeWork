@@ -115,7 +115,7 @@ namespace WeeklyHomeWork
             }
 
             Predicate<MyCollection<string>> predicate = IsValid;
-            Console.WriteLine("\nБлижайшие по условию");
+            Console.WriteLine("\nБлижайшие по условию:");
             foreach (string item in collection.GetClosest("3", predicate.Invoke(collection)))
             {
                 Console.WriteLine(item);
